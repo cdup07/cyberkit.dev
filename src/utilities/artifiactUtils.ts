@@ -42,13 +42,11 @@ export async function fetchArtifactData(
 ): Promise<string> {
   const endpoint = getEndpoint(type);
 
-  // Determine the base URL for the API request
   const baseURL =
     window.location.origin === "https://osint.lukealbertson.com"
       ? "https://osint.carsonww.com"
       : "https://osint.carsonww.com"; // SWITCHED FOR DEVELOPMENT window.location.origin;
 
-  // Send a request to the selected endpoint with the artifact
   const response = await fetch(`${baseURL}${endpoint}?artifact=${artifact}`);
   console.debug(response);
   if (!response.ok) {

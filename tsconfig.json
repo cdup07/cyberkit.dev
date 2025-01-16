@@ -9,5 +9,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true
-  }
+  },
+  "exclude": ["node_modules", "eslint.config.js", "vite.config.js"]
 }
