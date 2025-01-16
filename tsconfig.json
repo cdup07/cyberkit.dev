@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx", // Use "react" if you're using an older version of React (<17)
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES6",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true
+  }
+}
