@@ -118,11 +118,14 @@
 }
 
 /* Results Card Styles */
+/* Results Card Styles */
 .results-card {
   position: relative;
   opacity: 0;
   transform: translate(0px, -120px);
-  transition: opacity 0.5s ease, transform 0.4s ease;
+  transition: opacity 0.5s ease, transform 0.4s ease, background-color 0.3s ease;
+  background-color: rgba(27, 27, 27, 0.8); /* Default background */
+  cursor: pointer; /* Add pointer cursor for clickable box */
 }
 
 .results-card.visible {
@@ -131,6 +134,12 @@
   transition: opacity 0.05s ease, transform 0.3s ease;
   height: 100%;
 }
+
+.results-card:hover {
+  background-color: rgba(34, 34, 34, 1); /* Slightly darker background on hover */
+  box-shadow: 0 0 10px #00ff99; /* Add glowing effect on hover */
+}
+
 
 .more-results-card {
   opacity: 0;
@@ -157,10 +166,25 @@ footer {
   font-family: "Courier New", Courier, monospace;
   color: #00ff99;
   letter-spacing: 0.5px;
-  pointer-events: none;
   font-weight: bold;
   opacity: 0.9;
   background-color: transparent;
+  pointer-events: auto; /* Enable pointer events for footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align button and text */
+}
+
+footer .btn-link {
+  color: #00ff99;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 5px; /* Add spacing between text and button */
+}
+
+footer .btn-link:hover {
+  text-decoration: underline;
 }
 
 /* Header Styles */
@@ -280,12 +304,18 @@ footer {
 }
 
 .settings-btn {
+  position: absolute; /* Position it relative to the parent */
+  top: 30px; /* Adjust distance from the top */
+  right: 30px; /* Adjust distance from the right */
+  z-index: 1000; /* Ensure it stays on top of other elements */
+  cursor: pointer; /* Show pointer cursor */
   transition: transform 0.3s ease;
 }
 
 .settings-btn:hover {
-  transform: scale(1.2);
+  transform: scale(1.2); /* Add hover scaling for a nice effect */
 }
+
 
 /* Spinner Styles */
 .spinner-container {
@@ -301,3 +331,81 @@ footer {
   width: 3rem;
   height: 3rem;
 }
+
+/* Simplified Changelog Modal */
+.changelog-modal .changelog-content {
+  background-color: #111; /* Dark background */
+  border: 2px solid #00ff99; /* Accent border */
+  border-radius: 10px;
+  color: #00ff99;
+  font-family: "Courier New", Courier, monospace;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+.changelog-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #00ff99;
+  text-shadow: none; /* Remove glow effect */
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.changelog-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.changelog-list li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.changelog-list li::before {
+  content: "• ";
+  color: #00ff99;
+  margin-right: 5px;
+}
+
+.changelog-modal .btn-primary {
+  background-color: #00ff99;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.changelog-modal .btn-primary:hover {
+  background-color: #00e68a;
+}
+
+.copy-notification {
+  position: absolute;
+  top: 50%; /* Center vertically relative to the parent */
+  left: 50%; /* Center horizontally relative to the parent */
+  transform: translate(-50%, -50%); /* Adjust to center perfectly */
+  opacity: 0;
+  transform: translate(-50%, -20px); /* Start slightly above the center */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Add smooth fade and slide effect */
+  background-color: rgba(0, 255, 153, 0.8);
+  color: #0d0d0d;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  z-index: 10; /* Ensure it's above other content */
+  pointer-events: none; /* Prevent it from interfering with clicks */
+}
+
+.copy-notification.visible {
+  opacity: 1;
+  transform: translate(-50%, 0); /* Move to the center smoothly */
+}
+
+

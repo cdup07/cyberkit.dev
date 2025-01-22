@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Footer from "../layout/Footer";
 import ArtifactHandler from "../components/artifact/ArtifactHandler";
 import Settings from "../layout/Settings";
-import Header from '../layout/Header';
+import Header from "../layout/Header";
 
-const Home: React.FC = () => {
-  const [showSettings, setShowSettings] = useState<boolean>(false);
+interface HomeProps {
+  showSettings: boolean;
+  handleShowSettings: () => void;
+  isSimpleBackground: boolean;
+  onToggleBackground: () => void;
+}
 
-  const handleShowSettings = () => {
-    setShowSettings(!showSettings);
-  }
-
+const Home: React.FC<HomeProps> = ({
+  showSettings,
+  handleShowSettings,
+  isSimpleBackground,
+  onToggleBackground,
+}) => {
   return (
     <div className="home-page">
       <Container className="flex-grow-1 text-center pt-5">
-        <Header showSettings={showSettings} handleShowSettings={handleShowSettings}/>
+        <Header
+          showSettings={showSettings}
+          handleShowSettings={handleShowSettings}
+        />
         <Row className="my-5">
           <Col>
-            <h1 className="header">CyberKit.dev</h1>
+            <h1
+              className={`header ${
+                isSimpleBackground ? "simple-header" : ""
+              }`}
+            >
+              CyberKit.dev
+            </h1>
           </Col>
         </Row>
         <Row className="d-flex justify-content-center my-4">
@@ -26,8 +40,12 @@ const Home: React.FC = () => {
             <ArtifactHandler />
           </Col>
         </Row>
-        <Footer />
-        <Settings showSettings={showSettings} handleShowSettings={handleShowSettings} />
+        <Settings
+          showSettings={showSettings}
+          handleShowSettings={handleShowSettings}
+          isSimpleBackground={isSimpleBackground}
+          onToggleBackground={onToggleBackground}
+        />
       </Container>
     </div>
   );

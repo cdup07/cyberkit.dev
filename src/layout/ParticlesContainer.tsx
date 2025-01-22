@@ -36,7 +36,7 @@ const ParticlesContainer = () => {
         enable: true,
         distance: 50, // Link distance
         color: "#ffffff", // Link color
-        opacity: 0.1, // Link opacity
+        opacity: 0, // Link opacity
         width: 1, // Link width
       },
       move: {

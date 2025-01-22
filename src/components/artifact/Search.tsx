@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import AlertModal from "../AlertModal";
 
 interface SearchProps {
@@ -26,13 +26,6 @@ const Search: React.FC<SearchProps> = ({ handleArtifact }) => {
     handleArtifact(search);
   };
 
-  const Clear = () => {
-    setSearch("");
-    handleArtifact("");
-    setAlertMessage("");
-    setShowAlert(false);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -45,7 +38,7 @@ const Search: React.FC<SearchProps> = ({ handleArtifact }) => {
   };
 
   return (
-    <Card style={{ zIndex: "5" }}>
+    <div style={{ zIndex: "5" }} className="search-container">
       <Row className="d-flex justify-content-center mt-3">
         <Col xs={12}>
           <Form.Control
@@ -60,18 +53,13 @@ const Search: React.FC<SearchProps> = ({ handleArtifact }) => {
         </Col>
       </Row>
       <Row className="d-flex justify-content-center mt-3 mb-3">
-        <Col xs={6}>
+        <Col xs="auto">
           <Button
             variant="primary"
-            className="search-btn w-100"
+            className="search-btn"
             onClick={FetchData}
           >
             Search
-          </Button>
-        </Col>
-        <Col xs={6}>
-          <Button variant="secondary" className="w-100" onClick={Clear}>
-            Clear
           </Button>
         </Col>
       </Row>
@@ -80,7 +68,7 @@ const Search: React.FC<SearchProps> = ({ handleArtifact }) => {
         message={alertMessage}
         onClose={handleCloseAlert}
       />
-    </Card>
+    </div>
   );
 };
 

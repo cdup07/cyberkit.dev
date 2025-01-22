@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import Search from "./Search";
 import Results from "./Results";
 import MoreResults from "./MoreResults";
-import AlertModal from "../AlertModal";
 import {
   determineArtifactType,
   fetchArtifactData,
@@ -13,37 +12,44 @@ const ArtifactHandler: React.FC = () => {
   const [artifact, setArtifact] = useState<string>("");
   const [artifactData, setArtifactData] = useState<string>("");
   const [showMore, setShowMore] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState<string>("");
-  const [showAlert, setShowAlert] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-
+  
   const searchArtifact = async (artifact: string, type: string) => {
     console.debug(`Searching for ${type}: ${artifact}`);
     setLoading(true);
     try {
       const data = await fetchArtifactData(artifact, type);
       setArtifactData(data);
-    } catch (error: any) {
-      setAlertMessage(`An error occurred: ${error.message}`);
-      setShowAlert(true);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(`Backend error: ${error.message}`);
+        setArtifactData(`Error: ${error.message}`);
+      } else {
+        console.error("An unknown error occurred:", error);
+        setArtifactData("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const handleArtifact = (artifact: string) => {
-    setArtifactData("");
     setArtifact(artifact);
+    setArtifactData(""); // Clear previous data
     setShowMore(false);
     if (artifact.trim() === "") {
-      setAlertMessage("");
-      setShowAlert(false);
+      setArtifactData("Invalid artifact"); // Show "Invalid artifact" for empty input
     } else {
       try {
         determineArtifactType(artifact, searchArtifact);
       } catch (error) {
-        setAlertMessage("Invalid artifact");
-        setShowAlert(true);
+        if (error instanceof Error) {
+          console.error(`Artifact type determination failed: ${error.message}`);
+          setArtifactData("Invalid artifact");
+        } else {
+          console.error("Artifact type determination failed: Unknown error");
+          setArtifactData("Invalid artifact");
+        }
       }
     }
   };
@@ -58,35 +64,32 @@ const ArtifactHandler: React.FC = () => {
 
   return (
     <div>
-      <Row
-        className={`d-flex justify-content-center transition-container ${
-          showMore ? "show-more" : ""
-        }`}
-      >
-        <Col xs={6} className="col-main">
+      <Row className="d-flex justify-content-center">
+        <Col xs={6}>
           <Row>
             <Search handleArtifact={handleArtifact} />
           </Row>
           <Row>
-            <Results
-              artifactData={artifactData}
-              showMore={showMore}
-              handleShowMore={handleShowMore}
-              loading={loading}
-            />
+            <Results artifactData={artifactData} loading={loading} />
           </Row>
+          {artifactData && !loading && (
+            <Row className="d-flex justify-content-center mt-3">
+              <Button
+                variant="secondary"
+                onClick={handleShowMore}
+                style={{ width: "50%" }}
+              >
+                {showMore ? "Show Less" : "Show More"}
+              </Button>
+            </Row>
+          )}
+          {artifact && showMore && (
+            <Row className="mt-3">
+              <MoreResults artifact={artifact} />
+            </Row>
+          )}
         </Col>
-        {artifact && showMore && (
-          <Col xs={6} className="col-more-results">
-            <MoreResults artifact={artifact} />
-          </Col>
-        )}
       </Row>
-      <AlertModal
-        show={showAlert}
-        message={alertMessage}
-        onClose={() => setShowAlert(false)}
-      />
     </div>
   );
 };
