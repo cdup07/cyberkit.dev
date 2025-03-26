@@ -2,26 +2,29 @@ export function determineArtifactType(
   artifact: string,
   searchArtifact: (artifact: string, type: string) => void
 ) {
+  const trimmed = artifact.trim(); // <-- Trim whitespace
+
   const ipRegex =
     /((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(([a-fA-F0-9]{1,4}:){1,7}[a-fA-F0-9]{1,4}|::|([a-fA-F0-9]{1,4})?::([a-fA-F0-9]{1,4}:?){0,6}[a-fA-F0-9]{1,4})/;
-  const hashRegex = /^[a-fA-F0-9]{32,64}$/i; // Basic check for MD5, SHA-1, SHA-256, etc.
+  const hashRegex = /[a-fA-F0-9]{32,64}$/i;
   const urlRegex =
     /(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?/i;
 
-  if (ipRegex.test(artifact)) {
+  if (ipRegex.test(trimmed)) {
     console.debug("Artifact type: IP Address");
-    searchArtifact(artifact, "IP");
-  } else if (hashRegex.test(artifact)) {
+    searchArtifact(trimmed, "IP");
+  } else if (hashRegex.test(trimmed)) {
     console.debug("Artifact type: Hash");
-    searchArtifact(artifact, "Hash");
-  } else if (urlRegex.test(artifact)) {
+    searchArtifact(trimmed, "Hash");
+  } else if (urlRegex.test(trimmed)) {
     console.debug("Artifact type: Domain");
-    searchArtifact(artifact, "Domain");
+    searchArtifact(trimmed, "Domain");
   } else {
     console.debug("Artifact type: Unknown");
     throw new Error("Invalid artifact");
   }
 }
+
 
 export function getEndpoint(type: string): string {
   switch (type) {
