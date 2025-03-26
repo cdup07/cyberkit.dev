@@ -54,7 +54,7 @@ function App() {
         changelog={[
           "Its been a hot minute. If you see this, let me know that you're still using the site. Ty!",
           "Restored Ipv6 support.",
-          "Loosened Regex requirements (you can have a space before an IP).",
+          "Loosened Regex requirements (ex. you can have a space before an IP).",
           "Fixed the VirusTotal total count for domains (ex. it used to show 0/63 when it should've been 0/94).",
         ]}
         show={showChangelog}
