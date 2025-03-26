@@ -3,10 +3,10 @@ export function determineArtifactType(
   searchArtifact: (artifact: string, type: string) => void
 ) {
   const ipRegex =
-    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    /((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(([a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4})/;
   const hashRegex = /^[a-fA-F0-9]{32,64}$/i; // Basic check for MD5, SHA-1, SHA-256, etc.
   const urlRegex =
-    /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i;
+    /(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?/i;
 
   if (ipRegex.test(artifact)) {
     console.debug("Artifact type: IP Address");

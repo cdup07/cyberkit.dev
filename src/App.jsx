@@ -6,7 +6,7 @@ import ChangelogModal from "./components/ChangelogModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-const CURRENT_VERSION = "1.0.0"; // Update this version as needed
+const CURRENT_VERSION = "1.0.1"; // Update this version as needed
 
 function App() {
   const [isSimpleBackground, setIsSimpleBackground] = useState(false);
@@ -52,9 +52,10 @@ function App() {
       <ChangelogModal
         version={CURRENT_VERSION}
         changelog={[
-          "Added Simple Background toggle.",
-          "Improved settings pane UI.",
-          "Fixed particle system reset issue.",
+          "Its been a hot minute. If you see this, let me know that you're still using the site. Ty!",
+          "Restored Ipv6 support.",
+          "Loosened Regex requirements (you can have a space before an IP).",
+          "Fixed the VirusTotal total count for domains (ex. it used to show 0/63 when it should've been 0/94).",
         ]}
         show={showChangelog}
         onClose={() => setShowChangelog(false)}
