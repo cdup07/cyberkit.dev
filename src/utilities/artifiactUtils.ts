@@ -40,7 +40,7 @@ export function getEndpoint(type: string): string {
 }
 
 export async function fetchArtifactData(
-  artifact: string,
+  trimmed: string,
   type: string
 ): Promise<string> {
   const endpoint = getEndpoint(type);
@@ -50,7 +50,7 @@ export async function fetchArtifactData(
       ? "https://osint.carsonww.com"
       : "https://osint.carsonww.com"; // SWITCHED FOR DEVELOPMENT window.location.origin;
 
-  const response = await fetch(`${baseURL}${endpoint}?artifact=${artifact}`);
+  const response = await fetch(`${baseURL}${endpoint}?artifact=${trimmed}`);
   console.debug(response);
   if (!response.ok) {
     throw new Error("Error fetching data");
