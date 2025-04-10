@@ -20,14 +20,19 @@ export default function Sandbox({ isSimpleBackground }: SandboxProps) {
     if (!url.trim()) return;
     setLoading(true);
     setResult(null);
-
+  
+    let normalizedUrl = url.trim();
+    if (!/^https?:\/\//i.test(normalizedUrl)) {
+      normalizedUrl = "https://" + normalizedUrl;
+    }
+  
     try {
-      const res = await fetch(`https://render.cyberkit.dev/?url=${encodeURIComponent(url)}`);
+      const res = await fetch(`https://render.cyberkit.dev/?url=${encodeURIComponent(normalizedUrl)}`);
       const data = await res.json();
       setResult(data);
     } catch (err) {
       setResult({
-        url,
+        url: normalizedUrl,
         clipboard: [],
         screenshotBefore: "",
         screenshotAfter: "",
@@ -37,6 +42,7 @@ export default function Sandbox({ isSimpleBackground }: SandboxProps) {
       setLoading(false);
     }
   };
+  
 
   return (
     <Container className="pt-5 pb-5">
