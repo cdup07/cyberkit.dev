@@ -26,8 +26,18 @@ export default function Sandbox({ isSimpleBackground }: SandboxProps) {
       normalizedUrl = "https://" + normalizedUrl;
     }
   
+    // Determine the correct Worker endpoint based on origin
+    let baseWorkerURL = "";
+    const currentOrigin = window.location.origin;
+  
+    if (currentOrigin.includes("osint.lukealbertson.com")) {
+      baseWorkerURL = "https://render.osint.carsonww.com";
+    } else {
+      baseWorkerURL = currentOrigin.replace("www.", "").replace(/^https?:\/\//, "https://render.");
+    }
+  
     try {
-      const res = await fetch(`https://render.cyberkit.dev/?url=${encodeURIComponent(normalizedUrl)}`);
+      const res = await fetch(`${baseWorkerURL}/?url=${encodeURIComponent(normalizedUrl)}`);
       const data = await res.json();
       setResult(data);
     } catch (err) {
@@ -42,6 +52,7 @@ export default function Sandbox({ isSimpleBackground }: SandboxProps) {
       setLoading(false);
     }
   };
+  
   
 
   return (
