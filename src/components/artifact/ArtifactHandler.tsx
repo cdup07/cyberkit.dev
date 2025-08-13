@@ -72,6 +72,7 @@ const ArtifactHandler: React.FC = () => {
           <Row>
             <Results artifactData={artifactData} loading={loading} />
           </Row>
+          {/* Temporarily hidden - Show More button
           {artifactData && !loading && (
             <Row className="d-flex justify-content-center mt-3">
               <Button
@@ -83,11 +84,14 @@ const ArtifactHandler: React.FC = () => {
               </Button>
             </Row>
           )}
+          */}
+          {/* Temporarily hidden - More Results component
           {artifact && showMore && (
             <Row className="mt-3">
               <MoreResults artifact={artifact} />
             </Row>
           )}
+          */}
         </Col>
       </Row>
     </div>

@@ -16,7 +16,7 @@ interface MainLayoutProps {
   onCloseChangelog: () => void;
 }
 
-const CURRENT_VERSION = "1.1";
+const CURRENT_VERSION = "1.1.2";
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
@@ -55,7 +55,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <ChangelogModal
         version={CURRENT_VERSION}
         changelog={[
-          "Theres a new button in the top left... Try it out!"
+          "Disabled the 'Show More' button"
         ]}
         show={showChangelog}
         onClose={onCloseChangelog}
